@@ -2,7 +2,7 @@
   "name": "FunEdit",
   "version": "0.0.1",
   "description": "Editing with fun",
-  "main": "index.js",
+  "main": "funedit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +11,9 @@
     "Edit"
   ],
   "author": "Kyle Dawkins <info@kyledawkins.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.3.6",
+    "underscore": "^1.8.3"
+  }
 }
