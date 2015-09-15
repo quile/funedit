@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-feserver.run(io);
+feserver.run(io, file);
 
 /*
 io.on('connection', function (socket) {
