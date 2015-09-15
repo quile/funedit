@@ -14,10 +14,7 @@ var self = {
             socket.emit("initializeContent", _document.toJson());
         });
 
-        //self.addRoutes();
-    },
 
-    addRoutes: function() {
     },
 };
 
