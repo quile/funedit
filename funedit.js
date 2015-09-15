@@ -1,4 +1,5 @@
 var document = require("./models/document");
+var feserver = require("./services/feserver.js");
 
 var filename = process.argv[2];
 
@@ -23,9 +24,14 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
+feserver.run(io);
+
+/*
 io.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data) {
     console.log(data);
   });
 });
+*/
+
