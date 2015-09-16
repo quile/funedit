@@ -1,18 +1,15 @@
 "use strict";
 
 (function () {
-    console.log("Editor");
-
-
     // connect to server
     var socket = io.connect();
 
-
-    // UI
+    // UI code
     var _editor = null;
 
     function Editor(doc) {
         // Data elements
+
         // TODO: try to use isomorphic JS for this
         this._document = doc;
 
@@ -29,20 +26,21 @@
     };
 
     Editor.prototype.bindEvents = function() {
-        // NOTE: tricky bit here with rebinding of "this"
         this._contentElement.off("keyup").on("keyup", this.handleChange.bind(this));
     };
 
     Editor.prototype.handleChange = function(e) {
         var self = this;
+
         e.preventDefault();
         var newContents = self._contentElement.val();
 
         // https://github.com/kpdecker/jsdiff
-        // TODO: build thin abstraction
+        // TODO: build thin abstraction for diffs
         var diff = self.simplifyDiff(JsDiff.diffChars(self._document.contents, newContents));
         console.log(diff);
 
+        // notify server of change
         socket.emit("diff", diff);
     };
 
@@ -77,8 +75,8 @@
         return interestingDiffs;
     };
 
-    // Communication
 
+    // Server Communication
 
     // TODO: structure this code better
     socket.on('initializeContent', function (data) {

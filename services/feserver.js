@@ -10,17 +10,20 @@ var self = {
         _io = socketio;
         _document = document;
 
-        _io.on("connection", function(socket) {
-            console.log(_document.toJson());
-
-            socket.emit("initializeContent", _document.toJson());
-
-            socket.on("diff", function(diff) {
-                console.log(diff);
-            })
-        });
-
+        _io.on("connection", self.handleConnection.bind(self));
     },
+
+    handleConnection: function(socket) {
+        console.log(_document.toJson());
+
+        // Send document to client
+        socket.emit("initializeContent", _document.toJson());
+
+        // Receive a diff from the client
+        socket.on("diff", function(diff) {
+            console.log(diff);
+        })
+    }
 };
 
 
