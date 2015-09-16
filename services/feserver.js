@@ -1,3 +1,5 @@
+"use strict";
+
 var _io       = null;
 var _document = null;
 
@@ -12,8 +14,11 @@ var self = {
             console.log(_document.toJson());
 
             socket.emit("initializeContent", _document.toJson());
-        });
 
+            socket.on("diff", function(diff) {
+                console.log(diff);
+            })
+        });
 
     },
 };
