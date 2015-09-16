@@ -1,13 +1,24 @@
+"use strict";
+
 var document = require("./models/document");
 var feserver = require("./services/feserver.js");
 
 // TODO: parse arguments with optimist or something
 var filename = process.argv[2];
+var file     = null;
 
 // TODO: better argument checking
 if (filename) {
-    var file = new document.Document().init(filename);
-    //console.log(file.contents().toString());
+    try {
+        file = new document.Document().init(filename);
+    } catch (e) {
+        console.log(e);
+        usage();
+        process.exit(1);
+    }
+} else {
+    usage();
+    process.exit(1);
 }
 
 // TODO: manage dependency injection better with lifecycle/ecosystem code
@@ -29,3 +40,6 @@ app.get('/', function (req, res) {
 // start the websocket server
 feserver.run(io, file);
 
+function usage() {
+    console.log("usage: node funedit <file>");
+}
